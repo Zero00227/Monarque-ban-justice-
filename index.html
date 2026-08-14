@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Monarque Ban Justice</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --panel: #121212;
+            --neon-red: #ff0000;
+            --neon-green: #00ff66;
+            --text: #e0e0e0;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "JetBrains Mono", monospace;
+            background: radial-gradient(circle at top, #1a1a1a, #050505);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .panel {
+            width: 400px;
+            background: linear-gradient(180deg, #151515, #0a0a0a);
+            border: 2px solid var(--neon-red);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5), 
+                        0 0 60px rgba(255, 0, 0, 0.3),
+                        inset 0 0 20px rgba(255, 0, 0, 0.1);
+            animation: neon-border-pulse 3s infinite ease-in-out;
+        }
+
+        @keyframes neon-border-pulse {
+            0%, 100% {
+                border-color: var(--neon-red);
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), 
+                            0 0 60px rgba(255, 0, 0, 0.4),
+                            inset 0 0 20px rgba(255, 0, 0, 0.2);
+            }
+            50% {
+                border-color: var(--neon-green);
+                box-shadow: 0 0 30px rgba(0, 255, 102, 0.6), 
+                            0 0 60px rgba(0, 255, 102, 0.4),
+                            inset 0 0 20px rgba(0, 255, 102, 0.2);
+            }
+        }
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            background: url("https://files.catbox.moe/qyb0qz.jpeg") center/cover no-repeat;
+            border: 2px solid var(--neon-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 
+                        0 0 40px rgba(255, 0, 0, 0.5);
+            animation: avatar-glow 3s infinite ease-in-out;
+        }
+
+        @keyframes avatar-glow {
+            0%, 100% {
+                border-color: var(--neon-red);
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                border-color: var(--neon-green);
+                box-shadow: 0 0 20px rgba(0, 255, 102, 0.8), 0 0 40px rgba(0, 255, 102, 0.5);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            margin: 0;
+            font-size: 24px;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 
+                         0 0 20px rgba(255, 0, 0, 0.5);
+            animation: text-glow 3s infinite ease-in-out;
+        }
+
+        @keyframes text-glow {
+            0%, 100% {
+                text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 10px rgba(0, 255, 102, 0.8), 0 0 20px rgba(0, 255, 102, 0.5);
+            }
+        }
+
+        .sub {
+            text-align: center;
+            font-size: 11px;
+            opacity: 0.8;
+            margin: 8px 0 20px;
+            color: #888;
+            letter-spacing: 2px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            border-radius: 12px;
+            background: #0f0f0f;
+            border: 1px solid #333;
+            color: var(--text);
+            margin-bottom: 15px;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: var(--neon-red);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .btns {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            flex: 1;
+            padding: 14px;
+            border-radius: 12px;
+            border: 2px solid var(--neon-red);
+            background: rgba(255, 0, 0, 0.1);
+            color: #fff;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            animation: button-pulse 2s infinite ease-in-out;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: rgba(255, 0, 0, 0.2);
+            transform: translateY(-2px);
+        }
+
+        @keyframes button-pulse {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.5), 
+                            0 0 20px rgba(255, 0, 0, 0.3);
+                border-color: var(--neon-red);
+            }
+            50% {
+                box-shadow: 0 0 10px rgba(0, 255, 102, 0.5), 
+                            0 0 20px rgba(0, 255, 102, 0.3);
+                border-color: var(--neon-green);
+            }
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 16px;
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-green));
+            border-radius: 12px;
+            transition: width 0.2s ease;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.6);
+        }
+
+        .logs {
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 14px;
+            padding: 15px;
+            min-height: 180px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #00ff66;
+            overflow: hidden;
+            font-family: "JetBrains Mono", monospace;
+        }
+
+        .log {
+            animation: fadeIn 0.4s ease;
+            text-shadow: 0 0 5px rgba(0, 255, 102, 0.5);
+        }
+
+        .done {
+            color: var(--neon-green);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.8);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 10px;
+            opacity: 0.6;
+            color: #555;
+            letter-spacing: 1px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(6px);
+            }
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="panel">
+        <div class="avatar"></div>
+        <h1>Monarque Ban Justice</h1>
+        <div class="sub">WHATSAPP REPORT SYSTEM</div>
+        <input id="number" placeholder="Numéro WhatsApp à signaler" />
+        <div class="btns">
+            <button id="signalBtn">SIGNALER</button>
+        </div>
+        <div class="progress-container">
+            <div id="progressBar" class="progress-bar"></div>
+        </div>
+        <div class="logs" id="logs">
+            <div class="log">[MONARQUE] init::0x9fa3c4</div>
+        </div>
+        <div class="footer">Powered by MONARQUE</div>
+    </div>
+    <audio id="sound" src="https://files.catbox.moe/p06bpf.mp3"></audio>
+    <script>
+        const logs = document.getElementById("logs");
+        const signalBtn = document.getElementById("signalBtn");
+        const progressBar = document.getElementById("progressBar");
+        const sound = document.getElementById("sound");
+
+        const logPool = [
+            "[MONARQUE] payload.inject()",
+            "[MONARQUE] stream@ws://node/Δ7a91",
+            "[MONARQUE] xor.decrypt[0x4f9a]",
+            "[MONARQUE] hook.whatsapp.report",
+            "[MONARQUE] memory.flush :: 0x0007ff",
+            "[MONARQUE] socket.handshake::ok",
+            "[MONARQUE] heap.alloc[512kb]",
+            "[MONARQUE] api.whatsapp/v9/report",
+            "[MONARQUE] thread.spawn::reporter",
+            "[MONARQUE] checksum.bypass ✓",
+            "[MONARQUE] routing.tunnel::active",
+            "[MONARQUE] signal.push.queue",
+            "[MONARQUE] kernel.map::patched",
+            "[MONARQUE] entropy.sync",
+            "[MONARQUE] watchdog.disable",
+            "[MONARQUE] tx.commit::node-7",
+            "[MONARQUE] buffer.rotate",
+            "[MONARQUE] process.obfuscate"
+        ];
+
+        const MAX_TIME = 120;
+        const LOG_BATCH = 8;
+        let started = false;
+        let elapsed = 0;
+        let currentLogs = [];
+
+        document.body.addEventListener("click", () => {
+            if (sound.paused) {
+                sound.loop = true;
+                sound.play().catch(() => {});
+            }
+        });
+
+        signalBtn.onclick = () => {
+            if (started) return;
+            started = true;
+            elapsed = 0;
+            currentLogs = [];
+            logs.innerHTML = "";
+            progressBar.style.width = "0%";
+            sound.currentTime = 0;
+            sound.play().catch(() => {});
+
+            const timer = setInterval(() => {
+                elapsed++;
+                let percent = Math.floor((elapsed / MAX_TIME) * 100);
+                progressBar.style.width = percent + "%";
+
+                if (currentLogs.length >= LOG_BATCH) {
+                    currentLogs = [];
+                    logs.innerHTML = "";
+                }
+
+                for (let i = 0; i < LOG_BATCH; i++) {
+                    const line = document.createElement("div");
+                    line.className = "log";
+                    const base = logPool[Math.floor(Math.random() * logPool.length)];
+                    const noise = Math.random().toString(16).slice(2, 6);
+                    line.textContent = `${base} :: 0x${noise}`;
+                    logs.appendChild(line);
+                    currentLogs.push(line);
+                }
+
+                logs.scrollTop = logs.scrollHeight;
+
+                if (elapsed >= MAX_TIME) {
+                    clearInterval(timer);
+                    logs.innerHTML = "";
+                    const end = document.createElement("div");
+                    end.className = "log done";
+                    end.textContent = "✔ SIGNALEMENT TERMINÉ";
+                    logs.appendChild(end);
+                    progressBar.style.width = "100%";
+                    sound.pause();
+                    sound.currentTime = 0;
+                }
+            }, 200);
+        };
+    </script>
+</body>
+  </html>
