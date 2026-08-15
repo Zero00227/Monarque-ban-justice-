@@ -265,7 +265,7 @@
 <body>
 
     <div class="hud-container">
-                <!-- Badge Avatar Excentré -->
+            <!-- Badge Avatar Excentré -->
         <div class="character-badge">
             <div class="avatar"></div>
             <div class="status-pill" id="statusPill">En ligne</div>
@@ -273,7 +273,7 @@
 
         <header>
             <h1>Monarque Ban Justice</h1>
-            <div class="sub">System Protocol</div>
+            <div class="sub">Powered by Monarque</div>
         </header>
 
         <div class="input-wrapper">
@@ -295,6 +295,100 @@
 
         <footer>Core System v4.0</footer>
     </div>
+
+    <!-- Style injecté pour écraser les anciennes couleurs par les néons clignotants rouges et verts -->
+    <style>
+        .hud-container {
+            border: 2px solid var(--neon-red);
+            animation: neon-border-pulse 3s infinite ease-in-out;
+        }
+
+        .avatar {
+            /* URL publique stable et de secours pour l'illustration de Sung Jin-woo */
+            background: url("https://wikimedia.org") center/cover no-repeat;
+            border: 2px solid var(--neon-red);
+            animation: avatar-glow 3s infinite ease-in-out;
+        }
+
+        .status-pill {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid var(--neon-red);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            animation: status-glow 3s infinite ease-in-out;
+        }
+
+        button {
+            border: 2px solid var(--neon-red);
+            background: rgba(255, 0, 0, 0.1);
+            animation: button-pulse 2s infinite ease-in-out;
+        }
+
+        button:hover {
+            background: rgba(255, 0, 0, 0.25);
+        }
+
+        .progress-bar {
+            background: linear-gradient(90deg, var(--neon-red), var(--neon-green));
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .log-time {
+            color: var(--neon-green);
+        }
+
+        .log-success {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 102, 0.8);
+        }
+
+        /* Réintégration exacte de vos anciennes animations de clignotement */
+        @keyframes neon-border-pulse {
+            0%, 100% {
+                border-color: var(--neon-red);
+                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.2);
+            }
+            50% {
+                border-color: var(--neon-green);
+                box-shadow: 0 0 30px rgba(0, 255, 102, 0.6), inset 0 0 20px rgba(0, 255, 102, 0.2);
+            }
+        }
+
+        @keyframes avatar-glow {
+            0%, 100% {
+                border-color: var(--neon-red);
+                box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.5);
+            }
+            50% {
+                border-color: var(--neon-green);
+                box-shadow: 0 0 20px rgba(0, 255, 102, 0.8), 0 0 40px rgba(0, 255, 102, 0.5);
+            }
+        }
+
+        @keyframes status-glow {
+            0%, 100% {
+                border-color: var(--neon-red);
+                background: rgba(255, 0, 0, 0.1);
+                box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+            }
+            50% {
+                border-color: var(--neon-green);
+                background: rgba(0, 255, 102, 0.1);
+                box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
+            }
+        }
+
+        @keyframes button-pulse {
+            0%, 100% {
+                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+                border-color: var(--neon-red);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
+                border-color: var(--neon-green);
+            }
+        }
+    </style>
 
     <audio id="sound" src="https://catbox.moe"></audio>
 
@@ -323,10 +417,12 @@
             if(!inputVal) return alert("Veuillez saisir une cible valide.");
             
             signalBtn.disabled = true;
+            
+            statusPill.style.animation = "none";
             statusPill.innerText = "Traitement";
             statusPill.style.color = "#ff007f";
             statusPill.style.borderColor = "#ff007f";
-            statusPill.style.boxShadow = "0 0 10px rgba(255, 0, 127, 0.2)";
+            statusPill.style.boxShadow = "0 0 15px rgba(255, 0, 127, 0.6)";
             
             let currentProgress = 0;
             if(sound) sound.play().catch(() => {});
@@ -354,8 +450,9 @@
                     logs.scrollTop = logs.scrollHeight;
                     
                     statusPill.innerText = "Terminé";
-                    statusPill.style.color = "var(--accent-cyan)";
-                    statusPill.style.borderColor = "var(--accent-cyan)";
+                    statusPill.style.color = "var(--neon-green)";
+                    statusPill.style.borderColor = "var(--neon-green)";
+                    statusPill.style.boxShadow = "0 0 15px rgba(0, 255, 102, 0.6)";
                     
                     signalBtn.disabled = false;
                 }
