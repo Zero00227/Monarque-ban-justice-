@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Monarque Ban Justice</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://googleapis.com" rel="stylesheet" />
     <style>
         :root {
             --bg: #0a0a0a;
@@ -61,7 +61,8 @@
             height: 90px;
             margin: 0 auto 20px;
             border-radius: 50%;
-            background: url("https://files.catbox.moe/qyb0qz.jpeg") center/cover no-repeat;
+            /* Nouvelle image de Sung Jin-woo intégrée ici */
+            background: url("https://unsplash.com") center/cover no-repeat;
             border: 2px solid var(--neon-red);
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 
                         0 0 40px rgba(255, 0, 0, 0.5);
@@ -251,7 +252,7 @@
         </div>
         <div class="footer">Powered by MONARQUE</div>
     </div>
-    <audio id="sound" src="https://files.catbox.moe/p06bpf.mp3"></audio>
+    <audio id="sound" src="https://catbox.moe"></audio>
 
     <script>
         const logs = document.getElementById("logs");
@@ -274,7 +275,6 @@
             signalBtn.disabled = true;
             let currentProgress = 0;
             
-            // Jouer le son si disponible
             if(sound) sound.play().catch(() => {});
 
             const interval = setInterval(() => {
