@@ -265,7 +265,7 @@
 <body>
 
     <div class="hud-container">
-        <!-- Badge Avatar Excentré -->
+                <!-- Badge Avatar Excentré -->
         <div class="character-badge">
             <div class="avatar"></div>
             <div class="status-pill" id="statusPill">En ligne</div>
@@ -318,4 +318,49 @@
             return `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
         }
 
-        signalBtn.addEventListener("click", () => {const inputVal = document.getElementById("number").value.trim();if(!inputVal) return alert("Veuillez saisir une cible valide.");signalBtn.disabled = true;statusPill.innerText = "Traitement";statusPill.style.color = "#ff007f";statusPill.style.borderColor = "#ff007f";statusPill.style.boxShadow = "0 0 10px rgba(255, 0, 127, 0.2)";let currentProgress = 0;if(sound) sound.play().catch(() => {});const interval = setInterval(() => {currentProgress += 4;progressBar.style.width = currentProgress + "%";if (currentProgress % 20 === 0 && logPool.length > 0) {const randomText = logPool[Math.floor(Math.random() * logPool.length)];const row = document.createElement("div");row.className = "log-row";row.innerHTML = <span class="log-time">${getTimestamp()}</span><span class="log-text">${randomText}</span>;logs.appendChild(row);logs.scrollTop = logs.scrollHeight;}if (currentProgress >= 100) {clearInterval(interval);const finalRow = document.createElement("div");finalRow.className = "log-row";finalRow.innerHTML = <span class="log-time">${getTimestamp()}</span><span class="log-success">» PROTOCOLE TERMINÉ AVEC SUCCÈS.</span>;logs.appendChild(finalRow);logs.scrollTop = logs.scrollHeight;statusPill.innerText = "Terminé";statusPill.style.color = "var(--accent-cyan)";statusPill.style.borderColor = "var(--accent-cyan)";signalBtn.disabled = false;}}, 150);});
+        signalBtn.addEventListener("click", () => {
+            const inputVal = document.getElementById("number").value.trim();
+            if(!inputVal) return alert("Veuillez saisir une cible valide.");
+            
+            signalBtn.disabled = true;
+            statusPill.innerText = "Traitement";
+            statusPill.style.color = "#ff007f";
+            statusPill.style.borderColor = "#ff007f";
+            statusPill.style.boxShadow = "0 0 10px rgba(255, 0, 127, 0.2)";
+            
+            let currentProgress = 0;
+            if(sound) sound.play().catch(() => {});
+
+            const interval = setInterval(() => {
+                currentProgress += 4;
+                progressBar.style.width = currentProgress + "%";
+                
+                if (currentProgress % 20 === 0 && logPool.length > 0) {
+                    const randomText = logPool[Math.floor(Math.random() * logPool.length)];
+                    const row = document.createElement("div");
+                    row.className = "log-row";
+                    row.innerHTML = `<span class="log-time">${getTimestamp()}</span><span class="log-text">${randomText}</span>`;
+                    logs.appendChild(row);
+                    logs.scrollTop = logs.scrollHeight;
+                }
+
+                if (currentProgress >= 100) {
+                    clearInterval(interval);
+                    
+                    const finalRow = document.createElement("div");
+                    finalRow.className = "log-row";
+                    finalRow.innerHTML = `<span class="log-time">${getTimestamp()}</span><span class="log-success">» PROTOCOLE TERMINÉ AVEC SUCCÈS.</span>`;
+                    logs.appendChild(finalRow);
+                    logs.scrollTop = logs.scrollHeight;
+                    
+                    statusPill.innerText = "Terminé";
+                    statusPill.style.color = "var(--accent-cyan)";
+                    statusPill.style.borderColor = "var(--accent-cyan)";
+                    
+                    signalBtn.disabled = false;
+                }
+            }, 150);
+        });
+    </script>
+</body>
+</html>
