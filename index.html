@@ -135,7 +135,7 @@
         }
 
         button {
-            flex: 1;
+            width: 100%;
             padding: 14px;
             border-radius: 12px;
             border: 2px solid var(--neon-red);
@@ -197,7 +197,8 @@
             font-size: 14px;
             line-height: 1.6;
             color: #00ff66;
-            overflow: hidden;
+            overflow-y: auto;
+            max-height: 200px;
             font-family: "JetBrains Mono", monospace;
         }
 
@@ -251,6 +252,7 @@
         <div class="footer">Powered by MONARQUE</div>
     </div>
     <audio id="sound" src="https://files.catbox.moe/p06bpf.mp3"></audio>
+
     <script>
         const logs = document.getElementById("logs");
         const signalBtn = document.getElementById("signalBtn");
@@ -259,83 +261,46 @@
 
         const logPool = [
             "[MONARQUE] payload.inject()",
-            "[MONARQUE] stream@ws://node/Δ7a91",
-            "[MONARQUE] xor.decrypt[0x4f9a]",
-            "[MONARQUE] hook.whatsapp.report",
-            "[MONARQUE] memory.flush :: 0x0007ff",
-            "[MONARQUE] socket.handshake::ok",
-            "[MONARQUE] heap.alloc[512kb]",
-            "[MONARQUE] api.whatsapp/v9/report",
-            "[MONARQUE] thread.spawn::reporter",
-            "[MONARQUE] checksum.bypass ✓",
-            "[MONARQUE] routing.tunnel::active",
-            "[MONARQUE] signal.push.queue",
-            "[MONARQUE] kernel.map::patched",
-            "[MONARQUE] entropy.sync",
-            "[MONARQUE] watchdog.disable",
-            "[MONARQUE] tx.commit::node-7",
-            "[MONARQUE] buffer.rotate",
-            "[MONARQUE] process.obfuscate"
+            "[MONARQUE] connecting_to_whatsapp_server...",
+            "[MONARQUE] sending_spam_reports...",
+            "[MONARQUE] bypass_security_check...",
+            "[MONARQUE] target_account_flagged!"
         ];
 
-        const MAX_TIME = 120;
-        const LOG_BATCH = 8;
-        let started = false;
-        let elapsed = 0;
-        let currentLogs = [];
+        signalBtn.addEventListener("click", () => {
+            const inputVal = document.getElementById("number").value.trim();
+            if(!inputVal) return alert("Veuillez entrer un numéro");
+            
+            signalBtn.disabled = true;
+            let currentProgress = 0;
+            
+            // Jouer le son si disponible
+            if(sound) sound.play().catch(() => {});
 
-        document.body.addEventListener("click", () => {
-            if (sound.paused) {
-                sound.loop = true;
-                sound.play().catch(() => {});
-            }
-        });
-
-        signalBtn.onclick = () => {
-            if (started) return;
-            started = true;
-            elapsed = 0;
-            currentLogs = [];
-            logs.innerHTML = "";
-            progressBar.style.width = "0%";
-            sound.currentTime = 0;
-            sound.play().catch(() => {});
-
-            const timer = setInterval(() => {
-                elapsed++;
-                let percent = Math.floor((elapsed / MAX_TIME) * 100);
-                progressBar.style.width = percent + "%";
-
-                if (currentLogs.length >= LOG_BATCH) {
-                    currentLogs = [];
-                    logs.innerHTML = "";
+            const interval = setInterval(() => {
+                currentProgress += 5;
+                progressBar.style.width = currentProgress + "%";
+                
+                if (currentProgress % 20 === 0 && logPool.length > 0) {
+                    const randomLog = logPool[Math.floor(Math.random() * logPool.length)];
+                    const newLog = document.createElement("div");
+                    newLog.className = "log";
+                    newLog.innerText = randomLog;
+                    logs.appendChild(newLog);
+                    logs.scrollTop = logs.scrollHeight;
                 }
 
-                for (let i = 0; i < LOG_BATCH; i++) {
-                    const line = document.createElement("div");
-                    line.className = "log";
-                    const base = logPool[Math.floor(Math.random() * logPool.length)];
-                    const noise = Math.random().toString(16).slice(2, 6);
-                    line.textContent = `${base} :: 0x${noise}`;
-                    logs.appendChild(line);
-                    currentLogs.push(line);
-                }
-
-                logs.scrollTop = logs.scrollHeight;
-
-                if (elapsed >= MAX_TIME) {
-                    clearInterval(timer);
-                    logs.innerHTML = "";
-                    const end = document.createElement("div");
-                    end.className = "log done";
-                    end.textContent = "✔ SIGNALEMENT TERMINÉ";
-                    logs.appendChild(end);
-                    progressBar.style.width = "100%";
-                    sound.pause();
-                    sound.currentTime = 0;
+                if (currentProgress >= 100) {
+                    clearInterval(interval);
+                    const finalLog = document.createElement("div");
+                    finalLog.className = "log done";
+                    finalLog.innerText = "[MONARQUE] PROCESS DONE. REPORTS SENT SUCCESSFULLY.";
+                    logs.appendChild(finalLog);
+                    logs.scrollTop = logs.scrollHeight;
+                    signalBtn.disabled = false;
                 }
             }, 200);
-        };
+        });
     </script>
 </body>
-  </html>
+</html>
