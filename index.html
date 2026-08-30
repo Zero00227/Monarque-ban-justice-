@@ -1,479 +1,314 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <title>Monarque Ban Justice</title>
+    <title>
+      ARCANE SUPPORT BAN
+    </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="https://googleapis.com" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&amp;display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --bg: #030308;
-            --glass: rgba(10, 10, 25, 0.7);
-            --border-glow: #7000ff;
-            --accent-cyan: #00f3ff;
-            --accent-purple: #9d00ff;
-            --text-main: #ffffff;
-            --text-muted: #6c6c85;
-        }
+      :root{
+        --bg:#0a0a0a;
+        --panel:#121212;
+        --border:#222;
+        --neon-red:#ff0000;
+        --neon-green:#00ff66;
+        --text:#e0e0e0;
+      }
 
-        * {
-            box-sizing: border-box;
-        }
+      *{box-sizing:border-box}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--bg);
-            background-image: 
-                radial-gradient(circle at 80% 20%, rgba(157, 0, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 20% 80%, rgba(0, 243, 255, 0.15) 0%, transparent 40%);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow-x: hidden;
-            padding: 20px;
-        }
+      body{
+        margin:0;
+        min-height:100vh;
+        font-family:"JetBrains Mono", monospace;
+        background:radial-gradient(circle at top,#1a1a1a,#050505);
+        color:var(--text);
+        display:flex;
+        justify-content:center;
+        align-items:center;
+      }
 
-        /* Arrière-plan technologique animé */
-        body::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
-            background-size: 100% 4px, 6px 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+      .panel{
+        width:380px;
+        background:linear-gradient(180deg,#151515,#0a0a0a);
+        border:2px solid var(--neon-red);
+        border-radius:20px;
+        padding:26px;
+        box-shadow:0 0 30px rgba(255,0,0,0.5), 
+                   0 0 60px rgba(255,0,0,0.3),
+                   inset 0 0 20px rgba(255,0,0,0.1);
+        animation:neon-border-pulse 3s infinite ease-in-out;
+      }
 
-        .hud-container {
-            position: relative;
-            width: 100%;
-            max-width: 440px;
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(157, 0, 255, 0.3);
-            border-radius: 24px;
-            padding: 40px 24px 24px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            z-index: 1;
+      @keyframes neon-border-pulse{
+        0%,100%{
+          border-color:var(--neon-red);
+          box-shadow:0 0 30px rgba(255,0,0,0.6), 
+                     0 0 60px rgba(255,0,0,0.4),
+                     inset 0 0 20px rgba(255,0,0,0.2);
         }
+        50%{
+          border-color:var(--neon-green);
+          box-shadow:0 0 30px rgba(0,255,102,0.6), 
+                     0 0 60px rgba(0,255,102,0.4),
+                     inset 0 0 20px rgba(0,255,102,0.2);
+        }
+      }
 
-        /* Avatar asymétrique style HUD d'anime */
-        .character-badge {
-            position: absolute;
-            top: -45px;
-            left: 32px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
+      .avatar{
+        width:86px;
+        height:86px;
+        margin:0 auto 14px;
+        border-radius:50%;
+        background:url("https://files.catbox.moe/qyb0qz.jpeg") center/cover no-repeat;
+        border:2px solid var(--neon-red);
+        box-shadow:0 0 25px rgba(255,0,0,0.9);
+        animation:avatar-glow 3s infinite ease-in-out;
+      }
 
-        .avatar {
-            width: 84px;
-            height: 84px;
-            border-radius: 18px;
-            background: url("https://pfps.gg") center/cover no-repeat;
-            border: 2px solid var(--accent-cyan);
-            box-shadow: 0 0 25px rgba(0, 243, 255, 0.4);
-            transform: rotate(-3deg);
-            transition: transform 0.3s ease;
+      @keyframes avatar-glow{
+        0%,100%{
+          border-color:var(--neon-red);
+          box-shadow:0 0 25px rgba(255,0,0,0.9);
         }
+        50%{
+          border-color:var(--neon-green);
+          box-shadow:0 0 25px rgba(0,255,102,0.9);
+        }
+      }
 
-        .hud-container:hover .avatar {
-            transform: rotate(0deg) scale(1.05);
-        }
+      h1{text-align:center;margin:0;font-size:22px;color:#fff;text-shadow:0 0 10px rgba(255,0,0,0.8);animation:text-glow 3s infinite ease-in-out}
 
-        .status-pill {
-            background: rgba(0, 243, 255, 0.1);
-            border: 1px solid var(--accent-cyan);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 10px;
-            font-weight: bold;
-            letter-spacing: 1px;
-            color: var(--accent-cyan);
-            text-transform: uppercase;
-            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2);
-        }
+      @keyframes text-glow{
+        0%,100%{text-shadow:0 0 10px rgba(255,0,0,0.8),0 0 20px rgba(255,0,0,0.5)}
+        50%{text-shadow:0 0 10px rgba(0,255,102,0.8),0 0 20px rgba(0,255,102,0.5)}
+      }
 
-        header {
-            margin-top: 30px;
-            margin-bottom: 30px;
-        }
+      .sub{text-align:center;font-size:12px;opacity:.8;margin:6px 0 18px;color:#888}
 
-        h1 {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 18px;
-            margin: 0;
-            letter-spacing: -0.5px;
-            background: linear-gradient(45deg, var(--text-main), #b8b8ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+      input{
+        width:100%;
+        padding:12px;
+        border-radius:12px;
+        background:#0f0f14;
+        border:1px solid #333;
+        color:var(--text);
+        margin-bottom:12px;
+        font-family:"JetBrains Mono", monospace;
+        font-size:13px;
+        outline:none;
+        transition:all 0.3s ease;
+      }
 
-        .sub {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--accent-purple);
-            letter-spacing: 3px;
-            margin-top: 6px;
-            text-transform: uppercase;
-        }
+      input:focus{
+        border-color:var(--neon-red);
+        box-shadow:0 0 15px rgba(255,0,0,0.4);
+      }
 
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 20px;
-        }
+      .btns{display:flex;gap:10px;margin-bottom:18px}
 
-        input {
-            width: 100%;
-            padding: 16px 20px;
-            border-radius: 16px;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(108, 108, 133, 0.3);
-            color: var(--text-main);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+      button{
+        flex:1;
+        padding:12px;
+        border-radius:12px;
+        border:2px solid var(--neon-red);
+        background:rgba(255,0,0,0.1);
+        color:#fff;
+        font-family:"JetBrains Mono", monospace;
+        font-size:13px;
+        cursor:pointer;
+        text-transform:uppercase;
+        letter-spacing:1px;
+        animation:button-pulse 2s infinite ease-in-out;
+        transition:all 0.3s ease;
+      }
 
-        input:focus {
-            border-color: var(--accent-purple);
-            box-shadow: 0 0 20px rgba(157, 0, 255, 0.2), inset 0 0 10px rgba(0,0,0,0.5);
-            background: rgba(0, 0, 0, 0.6);
-        }
+      button:hover{
+        background:rgba(255,0,0,0.2);
+        transform:translateY(-2px);
+      }
 
-        /* Bouton biseauté futuriste */
-        button {
-            width: 100%;
-            padding: 16px;
-            border-radius: 16px;
-            border: none;
-            background: linear-gradient(135deg, var(--accent-purple) 0%, #5000b8 100%);
-            color: var(--text-main);
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 14px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            cursor: pointer;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 8px 20px rgba(157, 0, 255, 0.3);
-            transition: all 0.3s ease;
-            margin-bottom: 24px;
-        }
+      button.active{
+        color:#fff;
+        border-color:var(--neon-red);
+        background:rgba(255,0,0,0.15);
+      }
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.6s ease;
+      @keyframes button-pulse{
+        0%,100%{
+          box-shadow:0 0 10px rgba(255,0,0,0.5), 
+                     0 0 20px rgba(255,0,0,0.3);
+          border-color:var(--neon-red);
         }
+        50%{
+          box-shadow:0 0 10px rgba(0,255,102,0.5), 
+                     0 0 20px rgba(0,255,102,0.3);
+          border-color:var(--neon-green);
+        }
+      }
 
-        button:hover::before {
-            left: 100%;
-        }
+      .logs{
+        background:#07070a;
+        border:1px solid #333;
+        border-radius:14px;
+        padding:14px;
+        min-height:180px;
+        font-size:15px;
+        line-height:1.6;
+        color:#00ff66;
+        overflow:hidden;
+        text-shadow:0 0 5px rgba(0,255,102,0.5);
+      }
 
-        button:active {
-            transform: scale(0.98);
-        }
+      .progress-container{
+        width:100%;
+        height:14px;
+        background:#1c1c25;
+        border-radius:12px;
+        margin-bottom:12px;
+        overflow:hidden;
+        border:1px solid #333;
+      }
 
-        button:disabled {
-            background: #222230;
-            box-shadow: none;
-            color: var(--text-muted);
-            cursor: not-allowed;
-        }
+      .progress-bar{
+        width:0%;
+        height:100%;
+        background:linear-gradient(90deg,var(--neon-red),var(--neon-green));
+        border-radius:12px;
+        transition:width 0.2s ease;
+        box-shadow:0 0 10px rgba(255,0,0,0.6);
+      }
 
-        /* Barre de progression épurée */
-        .progress-container {
-            width: 100%;
-            height: 6px;
-            background: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            margin-bottom: 24px;
-            overflow: hidden;
-        }
+      .log{animation:fadeIn .4s ease}
+      .done{color:var(--neon-green);font-weight:600;text-shadow:0 0 10px rgba(0,255,102,0.8)}
 
-        .progress-bar {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan));
-            box-shadow: 0 0 10px var(--accent-cyan);
-            transition: width 0.2s ease;
-        }
+      .footer{text-align:center;margin-top:16px;font-size:10px;opacity:.6;color:#555}
 
-        /* Console de Logs Style Hologramme */
-        .logs-window {
-            background: rgba(3, 3, 8, 0.8);
-            border: 1px solid rgba(108, 108, 133, 0.2);
-            border-radius: 16px;
-            padding: 20px;
-            min-height: 160px;
-            max-height: 160px;
-            font-family: monospace;
-            font-size: 12px;
-            line-height: 1.8;
-            color: #a5a5cc;
-            overflow-y: auto;
-        }
-
-        .log-row {
-            display: flex;
-            gap: 8px;
-            animation: slideIn 0.3s ease forwards;
-        }
-
-        .log-time {
-            color: var(--accent-cyan);
-            opacity: 0.7;
-        }
-
-        .log-text {
-            color: var(--text-main);
-        }
-
-        .log-success {
-            color: var(--accent-cyan);
-            font-weight: bold;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 24px;
-            font-size: 10px;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-5px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
+      @keyframes fadeIn{
+        from{opacity:0;transform:translateY(6px)}
+        to{opacity:1;transform:none}
+      }
     </style>
-</head>
-<body>
-
-    <div class="hud-container">
-                    <!-- Badge Avatar Excentré -->
-        <div class="character-badge">
-            <div class="avatar">
-                <!-- Image en code SVG pur : s'affichera instantanément sans aucun lien externe -->
-                <svg viewBox="0 0 100 100" xmlns="http://w3.org">
-                    <circle cx="50" cy="50" r="45" fill="#050508"/>
-                    <path d="M50 15 L80 35 L80 65 L50 85 L20 65 L20 35 Z" fill="none" stroke="#ff0000" stroke-width="2" stroke-linejoin="round"/>
-                    <path d="M50 25 L70 40 L70 60 L50 75 L30 60 L30 40 Z" fill="none" stroke="#00ff66" stroke-width="1.5" opacity="0.7"/>
-                    <path d="M35 48 L45 52 L35 56 Z" fill="#00ff66" />
-                    <path d="M65 48 L55 52 L65 56 Z" fill="#00ff66" />
-                    <line x1="50" y1="35" x2="50" y2="65" stroke="#ff0000" stroke-width="2" stroke-dasharray="2 3"/>
-                </svg>
-            </div>
-            <div class="status-pill" id="statusPill">En ligne</div>
+  </head>
+  <body>
+    <div class="panel">
+      <div class="avatar">
+      </div>
+      <h1>
+        ARCANE SUPPORT BAN
+      </h1>
+      <div class="sub">
+        WHATSAPP REPORT SYSTEM
+      </div>
+      <input id="number" placeholder="Numéro WhatsApp à signaler" />
+      <div class="btns">
+        <button id="signalBtn" class="active">
+          SIGNALER
+        </button>
+      </div>
+      <div class="progress-container">
+        <div id="progressBar" class="progress-bar">
         </div>
-
-        <header>
-            <h1>Monarque Ban Justice</h1>
-            <div class="sub">Powered by MONARQUE</div>
-        </header>
-
-        <div class="input-wrapper">
-            <input id="number" placeholder="Identifiant ou numéro cible..." autocomplete="off" />
+      </div>
+      <div class="logs" id="logs">
+        <div class="log">
+          [ARCANE] init::0x9fa3c4
         </div>
-
-        <button id="signalBtn">Exécuter le protocole</button>
-
-        <div class="progress-container">
-            <div id="progressBar" class="progress-bar"></div>
-        </div>
-
-        <div class="logs-window" id="logs">
-            <div class="log-row">
-                <span class="log-time">[00:00]</span>
-                <span class="log-text">SYSTEM_READY :: En attente d'initialisation...</span>
-            </div>
-        </div>
-
-        <footer>System v2.0</footer>
+      </div>
+      <div class="footer">
+        Powered by Monarque
+      </div>
     </div>
-
-    <style>
-        .hud-container {
-            border: 2px solid var(--neon-red);
-            animation: neon-border-pulse 3s infinite ease-in-out;
-        }
-
-        .avatar {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #050508;
-            border: 2px solid var(--neon-red);
-            animation: avatar-glow 3s infinite ease-in-out;
-            overflow: hidden;
-        }
-
-        .avatar svg {
-            width: 100%;
-            height: 100%;
-        }
-
-        .status-pill {
-            background: rgba(255, 0, 0, 0.1);
-            border: 1px solid var(--neon-red);
-            color: #fff;
-            box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-            animation: status-glow 3s infinite ease-in-out;
-        }
-
-        button {
-            border: 2px solid var(--neon-red);
-            background: rgba(255, 0, 0, 0.1);
-            animation: button-pulse 2s infinite ease-in-out;
-        }
-
-        button:hover {
-            background: rgba(255, 0, 0, 0.25);
-        }
-
-        .progress-bar {
-            background: linear-gradient(90deg, var(--neon-red), var(--neon-green));
-            box-shadow: 0 0 10px var(--neon-green);
-        }
-
-        .log-time {
-            color: var(--neon-green);
-        }
-
-        .log-success {
-            color: var(--neon-green);
-            text-shadow: 0 0 10px rgba(0, 255, 102, 0.8);
-        }
-
-        @keyframes neon-border-pulse {
-            0%, 100% {
-                border-color: var(--neon-red);
-                box-shadow: 0 0 30px rgba(255, 0, 0, 0.6), inset 0 0 20px rgba(255, 0, 0, 0.2);
-            }
-            50% {
-                border-color: var(--neon-green);
-                box-shadow: 0 0 30px rgba(0, 255, 102, 0.6), inset 0 0 20px rgba(0, 255, 102, 0.2);
-            }
-        }
-
-        @keyframes avatar-glow {
-            0%, 100% {
-                border-color: var(--neon-red);
-                box-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 40px rgba(255, 0, 0, 0.5);
-            }
-            50% {
-                border-color: var(--neon-green);
-                box-shadow: 0 0 20px rgba(0, 255, 102, 0.8), 0 0 40px rgba(0, 255, 102, 0.5);
-            }
-        }
-
-        @keyframes status-glow {
-            0%, 100% {
-                border-color: var(--neon-red);
-                background: rgba(255, 0, 0, 0.1);
-                box-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
-            }
-            50% {
-                border-color: var(--neon-green);
-                background: rgba(0, 255, 102, 0.1);
-                box-shadow: 0 0 10px rgba(0, 255, 102, 0.4);
-            }
-        }
-
-        @keyframes button-pulse {
-            0%, 100% {
-                box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
-                border-color: var(--neon-red);
-            }
-            50% {
-                box-shadow: 0 0 15px rgba(0, 255, 102, 0.5);
-                border-color: var(--neon-green);
-            }
-        }
-    </style>
-
-    <audio id="sound" src="https://catbox.moe"></audio>
-
+    <audio id="sound" src="https://files.catbox.moe/p06bpf.mp3">
+    </audio>
     <script>
-        const logs = document.getElementById("logs");
-        const signalBtn = document.getElementById("signalBtn");
-        const progressBar = document.getElementById("progressBar");
-        const statusPill = document.getElementById("statusPill");
-        const sound = document.getElementById("sound");
+      const logs = document.getElementById("logs");
+const signalBtn = document.getElementById("signalBtn");
+const progressBar = document.getElementById("progressBar");
+const sound = document.getElementById("sound");
 
-        const logPool = [
-            "Injection des paquets de données en cours...",
-            "Tentative de contournement du pare-feu...",
-            "Synchronisation avec la passerelle principale...",
-            "Génération du jeton d'authentification...",
-            "Alerte de sécurité contournée avec succès."
-        ];
+const logPool = [
+  "[ARCANE] payload.inject()",
+  "[ARCANE] stream@ws://node/Δ7a91",
+  "[ARCANE] xor.decrypt[0x4f9a]",
+  "[ARCANE] hook.whatsapp.report",
+  "[ARCANE] memory.flush :: 0x0007ff",
+  "[ARCANE] socket.handshake::ok",
+  "[ARCANE] heap.alloc[512kb]",
+  "[ARCANE] api.whatsapp/v9/report",
+  "[ARCANE] thread.spawn::reporter",
+  "[ARCANE] checksum.bypass ✓",
+  "[ARCANE] routing.tunnel::active",
+  "[ARCANE] signal.push.queue",
+  "[ARCANE] kernel.map::patched",
+  "[ARCANE] entropy.sync",
+  "[ARCANE] watchdog.disable",
+  "[ARCANE] tx.commit::node-7",
+  "[ARCANE] buffer.rotate",
+  "[ARCANE] process.obfuscate"
+];
 
-        function getTimestamp() {
-            const now = new Date();
-            return `[${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}:${now.getSeconds().toString().padStart(2, '0')}]`;
-        }
+const MAX_TIME = 120;
+const LOG_BATCH = 8;
+let started = false;
+let elapsed = 0;
+let currentLogs = [];
 
-        signalBtn.addEventListener("click", () => {
-            const inputVal = document.getElementById("number").value.trim();
-            if(!inputVal) return alert("Veuillez saisir une cible valide.");
-            
-            signalBtn.disabled = true;
-            
-            statusPill.style.animation = "none";
-            statusPill.innerText = "Traitement";
-            statusPill.style.color = "#ff007f";
-            statusPill.style.borderColor = "#ff007f";
-            statusPill.style.boxShadow = "0 0 15px rgba(255, 0, 127, 0.6)";
-            
-            let currentProgress = 0;
-            if(sound) sound.play().catch(() => {});
+document.body.addEventListener("click",()=>{
+  if(sound.paused){
+    sound.loop = true;
+    sound.play().catch(()=>{});
+  }
+});
 
-            const interval = setInterval(() => {
-                currentProgress += 4;
-                progressBar.style.width = currentProgress + "%";
-                
-                if (currentProgress % 20 === 0 && logPool.length > 0) {
-                    const randomText = logPool[Math.floor(Math.random() * logPool.length)];
-                    const row = document.createElement("div");
-                    row.className = "log-row";
-                    row.innerHTML = `<span class="log-time">${getTimestamp()}</span><span class="log-text">${randomText}</span>`;
-                    logs.appendChild(row);
-                    logs.scrollTop = logs.scrollHeight;
-                }
+signalBtn.onclick = ()=>{
+  if(started) return;
+  started = true;
+  elapsed = 0;
+  currentLogs = [];
+  logs.innerHTML = "";
+  progressBar.style.width = "0%";
+  sound.currentTime = 0;
+  sound.play().catch(()=>{});
 
-                if (currentProgress >= 100) {
-                    clearInterval(interval);
-                    
-                    const finalRow = document.createElement("div");
-                    finalRow.className = "log-row";
-                    finalRow.innerHTML = `<span class="log-time">${getTimestamp()}</span><span class="log-success">» PROTOCOLE TERMINÉ AVEC SUCCÈS.</span>`;
-                    logs.appendChild(finalRow);
-                    logs.scrollTop = logs.scrollHeight;
-                    
-                    statusPill.innerText = "Terminé";
-                    statusPill.style.color = "var(--neon-green)";
-                    statusPill.style.borderColor = "var(--neon-green)";
-                    statusPill.style.boxShadow = "0 0 15px rgba(0, 255, 102, 0.6)";
-                    
-                    signalBtn.disabled = false;
-                }
-            }, 150);
-        });
+  const timer = setInterval(()=>{
+    elapsed++;
+    let percent = Math.floor((elapsed/MAX_TIME)*100);
+    progressBar.style.width = percent + "%";
+
+    if(currentLogs.length >= LOG_BATCH){
+      currentLogs = [];
+      logs.innerHTML = "";
+    }
+
+    for(let i=0; i<LOG_BATCH; i++){
+      const line = document.createElement("div");
+      line.className="log";
+      const base = logPool[Math.floor(Math.random()*logPool.length)];
+      const noise = Math.random().toString(16).slice(2,6);
+      line.textContent = `${base} :: 0x${noise}`;
+      logs.appendChild(line);
+      currentLogs.push(line);
+    }
+
+    logs.scrollTop = logs.scrollHeight;
+
+    if(elapsed >= MAX_TIME){
+      clearInterval(timer);
+      logs.innerHTML = "";
+      const end = document.createElement("div");
+      end.className="log done";
+      end.textContent = "✔ SIGNALMENT TERMINÉ";
+      logs.appendChild(end);
+      progressBar.style.width = "100%";
+      sound.pause();
+      sound.currentTime = 0;
+    }
+
+  }, 200);
+};
     </script>
-</body>
+  </body>
 </html>
